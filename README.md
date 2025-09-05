@@ -1,2 +1,3 @@
 # FastEP
-Surrogate E+ models.
+
+Surrogate EnergyPlus models for fast building energy optimization.

@@ -1,0 +1,9 @@
+[project]
+name = "FastEP"
+version = "0.1.0"
+description = "Surrogate EnergyPlus models for fast building energy optimization"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.3.2",
+]
