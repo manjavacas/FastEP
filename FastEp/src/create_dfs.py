@@ -22,7 +22,7 @@ def load_data(df_dir):
         df_dir / DATASET_FILENAME)[:-1]  # removes duplicated last row
 
     # States (t)
-    df_states = df.select([pl.col(STATE_VARIABLES).exclude(ACTION_VARIABLES)])[
+    df_states = df.select(STATE_VARIABLES)[
         :-1].rename(lambda colname: 'STATE_' + colname)
 
     # Actions (t) (shifted by one timestep)
