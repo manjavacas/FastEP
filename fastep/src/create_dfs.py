@@ -18,8 +18,7 @@ def load_data(df_dir):
     Returns:
         pl.DataFrame: Merged dataframe with states, actions, and next states.
     '''
-    df = pl.read_csv(
-        df_dir / DATASET_FILENAME)[:-1]  # removes duplicated last row
+    df = pl.read_csv(df_dir / DATASET_FILENAME)
 
     # States (t)
     df_states = df.select(STATE_VARIABLES)[
