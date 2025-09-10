@@ -18,6 +18,7 @@ TRAIN_DATA_DIR = DATA_DIR / 'train'
 BATCH_SIZE = 32
 NUM_EPOCHS = 500
 LEARNING_RATE = 1e-3
+
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
