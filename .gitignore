@@ -1,5 +1,7 @@
 # Datasets
-FastEp/data/train/df_*/df_*.csv
+FastEp/data/train/*
+FastEp/data/test/*
+FastEp/data/val/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
