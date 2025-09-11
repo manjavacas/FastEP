@@ -105,7 +105,7 @@ def train_one_epoch(model, loaders, criterion, optimizer, device):
     return total_loss / len(loaders)
 
 
-def main():
+def train():
     '''
     Main training loop to load data, initialize model, and train.
     '''
@@ -123,13 +123,13 @@ def main():
     criterion = nn.MSELoss()
 
     # Training loop
-    for epoch in range(1, NUM_EPOCHS + 1):
+    for epoch in range(0, NUM_EPOCHS):
         epoch_loss = train_one_epoch(
             model, loaders, criterion, optimizer, DEVICE)
-        print(f'Epoch {epoch}/{NUM_EPOCHS}, Loss: {epoch_loss:.4f}')
+        print(f'Epoch {epoch + 1}/{NUM_EPOCHS}, Loss: {epoch_loss:.4f}')
 
     torch.save(model.state_dict(), 'trained_model.pth')
 
 
 if __name__ == '__main__':
-    main()
+    train()
