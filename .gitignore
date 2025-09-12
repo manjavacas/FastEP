@@ -1,7 +1,7 @@
 # Datasets
 # FastEp/data/train/*
-FastEp/data/test/*
-FastEp/data/val/*
+# FastEp/data/test/*
+# FastEp/data/val/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
