@@ -21,7 +21,7 @@ FastEP is a project focused on fast building energy optimization. Its goal is to
    source .venv/bin/activate
    ```
 
-3. Install dependencies with uv (Python 3.12+ required):
+3. Install dependencies with `uv` (Python 3.12+ required):
    ```bash
    uv sync
    ```
