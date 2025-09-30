@@ -1,7 +1,7 @@
 from pathlib import Path
 import polars as pl
 
-from fastep.src.variables import STATE_VARIABLES, ACTION_VARIABLES, TARGET_VARIABLES
+from variables import STATE_VARIABLES, ACTION_VARIABLES, TARGET_VARIABLES
 
 DATASET_FILENAME = "observations.csv"
 
