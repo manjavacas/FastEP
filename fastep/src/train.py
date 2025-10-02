@@ -22,7 +22,7 @@ def load_datasets(data_dir: Path, seq_len: int):
     Load all datasets from the specified directory and normalize them using StandardScaler.
 
     The first dataset is used to fit the scaler, which is then applied to all subsequent datasets.
-    Each subdirectory should contain a CSV file with the same name as the directory.
+    Each subdirectory should contain a Parquet file with the same name as the directory.
 
     Args:
         data_dir (Path): Path to the directory containing dataset subdirectories.
@@ -36,8 +36,13 @@ def load_datasets(data_dir: Path, seq_len: int):
     datasets, scaler = [], None
     for folder in data_dir.iterdir():
         if folder.is_dir():
-            csv_file = folder / f"{folder.name}.csv"
-            df = pl.read_csv(csv_file)
+            parquet_file = folder / f"{folder.name}.parquet"
+            # Fallback to CSV if Parquet doesn't exist
+            if parquet_file.exists():
+                df = pl.read_parquet(parquet_file)
+            else:
+                csv_file = folder / f"{folder.name}.csv"
+                df = pl.read_csv(csv_file)
             df, scaler = preprocess_dataframe(df, scaler)
             datasets.append(SequenceDataset(df, seq_len))
     return datasets, scaler

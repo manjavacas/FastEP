@@ -26,9 +26,17 @@ FastEP is a project focused on fast building energy optimization. Its goal is to
    uv sync
    ```
 
-## 🤝 Contributing
+## 📊 Data Processing
 
-Contributions are welcome! Please open an issue or submit a pull request.
+1. **Prepare datasets**. Process raw EnergyPlus simulation data:
+   ```bash
+   python fastep/src/create_dfs.py
+   ```
+
+2. **Train models**. Train LSTM surrogate model:
+   ```bash
+   python fastep/src/main.py
+   ```
 
 ## 📄 License
 

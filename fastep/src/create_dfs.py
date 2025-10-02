@@ -4,32 +4,37 @@ import polars as pl
 from variables import STATE_VARIABLES, ACTION_VARIABLES, TARGET_VARIABLES
 
 DATASET_FILENAME = "observations.csv"
+DATASET_PARQUET_FILENAME = "observations.parquet"
 
 
 def load_data(df_dir: Path) -> pl.DataFrame:
     """
     Load and merge (state_t, action_t, state_{t+1}) transitions into a single DataFrame.
 
-    This function reads the dataset CSV, then constructs:
+    This function reads the dataset from CSV or Parquet, then constructs:
         - STATE_: features at time t
         - ACTION_: actions at time t
         - NEXT_STATE_: features at time t+1
 
     Args:
-        df_dir (Path): Directory containing the dataset CSV file.
+        df_dir (Path): Directory containing the dataset file.
 
     Returns:
-        pl.DataFrame: Merged dataframe with columns prefixed by 'STATE_', 'ACTION_', 
+        pl.DataFrame: Merged dataframe with columns prefixed by 'STATE_', 'ACTION_',
                       and 'NEXT_STATE_' ready for sequence dataset creation.
 
     Raises:
-        FileNotFoundError: If the dataset CSV file does not exist in `df_dir`.
+        FileNotFoundError: If neither the dataset CSV nor Parquet file exists in `df_dir`.
     """
+    parquet_path = df_dir / DATASET_PARQUET_FILENAME
     csv_path = df_dir / DATASET_FILENAME
-    if not csv_path.exists():
-        raise FileNotFoundError(f"Dataset file not found: {csv_path}")
 
-    df = pl.read_csv(csv_path)
+    if parquet_path.exists():
+        df = pl.read_parquet(parquet_path)
+    elif csv_path.exists():
+        df = pl.read_csv(csv_path)
+    else:
+        raise FileNotFoundError(f"Dataset file not found: {csv_path} or {parquet_path}")
 
     # States at time t
     df_states = df.select(STATE_VARIABLES)[:-1].rename(
@@ -54,18 +59,20 @@ def load_data(df_dir: Path) -> pl.DataFrame:
 
 def main():
     """
-    Process all `observation.csv` datasets in the training directory and save them as preprocessed CSV files.
+    Process all observation datasets in the training directory and save them as preprocessed Parquet files.
 
-    For each subdirectory in the training data directory whose name starts with 'df_', 
-    this function loads the raw observation CSV, merges state and action transitions, 
-    and writes the resulting dataframe back as `<directory_name>.csv`.
+    For each subdirectory in the training data directory whose name starts with 'df_',
+    this function loads the raw observation data, merges state and action transitions,
+    and writes the resulting dataframe as `<directory_name>.parquet`.
     """
     data_dir_train = Path(__file__).parent.parent / "data" / "train"
 
     for df_dir in data_dir_train.iterdir():
         if df_dir.is_dir() and df_dir.name.startswith("df_"):
             df = load_data(df_dir)
-            df.write_csv(df_dir / (df_dir.name + ".csv"))
+            parquet_path = df_dir / (df_dir.name + ".parquet")
+            df.write_parquet(parquet_path)
+            print(f"Saved {parquet_path}")
 
 
 if __name__ == "__main__":

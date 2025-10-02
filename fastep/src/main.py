@@ -5,7 +5,7 @@ def main():
     """
     Main function.
     """
-    
+
     train_config = {
         "batch_size": 32,
         "seq_len": 4,
