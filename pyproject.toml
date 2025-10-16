@@ -10,8 +10,12 @@ dependencies = [
     "scikit-learn>=1.7.1",
     "torch>=2.8.0",
     "pyarrow>=18.0.0",
+<<<<<<< HEAD
     "matplotlib>=3.10.7",
     "pandas>=2.3.3",
     "seaborn>=0.13.2",
     "tqdm>=4.67.1",
+=======
+    "seaborn>=0.13.2",
+>>>>>>> 4204f9512c257b0323a34235b12b7a08cc9606fc
 ]
