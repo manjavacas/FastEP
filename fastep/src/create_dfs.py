@@ -68,7 +68,7 @@ def main():
     data_dir_train = Path(__file__).parent.parent / "data" / "train"
 
     for df_dir in data_dir_train.iterdir():
-        if df_dir.is_dir() and df_dir.name.startswith("df_"):
+        if df_dir.is_dir() and df_dir.name.startswith("df-"):
             df = load_data(df_dir)
             parquet_path = df_dir / (df_dir.name + ".parquet")
             df.write_parquet(parquet_path)
